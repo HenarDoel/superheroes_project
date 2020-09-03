@@ -17,6 +17,22 @@
       "group_id": null,
       "shape_type": "rectangle",
       "flags": {}
+    },
+    {
+      "label": "bg",
+      "points": [
+        [
+          17.333333333333485,
+          1890.0
+        ],
+        [
+          1937.3333333333335,
+          3000.0
+        ]
+      ],
+      "group_id": null,
+      "shape_type": "rectangle",
+      "flags": {}
     }
   ],
   "imagePath": "Deadpool 006-000.jpg",

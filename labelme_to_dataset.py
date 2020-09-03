@@ -5,6 +5,7 @@ import io
 import numpy as np
 import matplotlib.pyplot as plt
 from skimage import io as io2
+import cv2
 
 # leer y abrir los objetos json
 with open('images/Deadpool 006-007.json') as f:
@@ -35,23 +36,29 @@ for dc in detections_coords:
     xmin = round(dc["points"][0][0])
     xmax = round(dc["points"][1][0])
     # sacamos la deteccion actual y la añadimos a la lista de detecciones
-    detections.append(image_array[ymin:ymax, xmin:xmax])
+    if (dc["label"]=='bg') :
+        bg.append(image_array[ymin:ymax, xmin:xmax])
+    else:
+        detections.append(image_array[ymin:ymax, xmin:xmax])
     # dejamos en negro las zonas de las detecciones
     image_array_copy[ymin:ymax, xmin:xmax] = (0, 255, 0)
-# A continucación viene el proceso de extraer el fondo de la imagen,
-# es decir, lo que no está dentro de las bounding boxes
-# elegimos número de divisones del fondo
-numparts=10
-# dividimps según el tamaño de la imagen y el numparts elegido
-for i in range(numparts):
-    # dividimos a lo largo de ambos ejes cada vez, y lo apendeamos
-    bg.append(np.array_split(np.array_split(image_array_copy,numparts,axis=0)[i],numparts,axis=1))
-# como nos queda una lista de listas, la desenrollamos
-bg=[item for sublist in bg for item in sublist]
-# creamos una imagen del tamaño de los cachos de fondo toda a verde
-reference=np.zeros(bg[0].shape)
-reference[:,:,1]=255
 
-# mostramos la imagen recortada, solo con la bounding box
-# (es un numpy array, por eso usamos io2.show)
-# io2.imshow(image_array[ymin:ymax,xmin:xmax])
+# # A continucación viene el proceso de extraer el fondo de la imagen,
+# # es decir, lo que no está dentro de las bounding boxes
+# # elegimos número de divisones del fondo
+# numparts=10
+# # dividimps según el tamaño de la imagen y el numparts elegido
+# for i in range(numparts):
+#     # dividimos a lo largo de ambos ejes cada vez, y lo apendeamos
+#     bg.append(np.array_split(np.array_split(image_array_copy,numparts,axis=0)[i],numparts,axis=1))
+# # como nos queda una lista de listas, la desenrollamos
+# bg=[item for sublist in bg for item in sublist]
+# # creamos una imagen del tamaño de los cachos de fondo toda a verde
+# reference=np.zeros(bg[0].shape)
+# reference[:,:,1]=255
+# # comprobamos si más de un 60% de los pixeles de cada cuadrado son verdes (no fondo)
+# size_bg=bg[0].size
+# # if (sum(sum(sum(bg[1]==reference)))/size_bg >= 0.6)
+# # mostramos la imagen recortada, solo con la bounding box
+# # (es un numpy array, por eso usamos io2.show)
+# # io2.imshow(image_array[ymin:ymax,xmin:xmax])

@@ -49,6 +49,134 @@
       "group_id": null,
       "shape_type": "rectangle",
       "flags": {}
+    },
+    {
+      "label": "bg",
+      "points": [
+        [
+          831.3333333333335,
+          33.333333333333336
+        ],
+        [
+          1378.0,
+          756.6666666666667
+        ]
+      ],
+      "group_id": null,
+      "shape_type": "rectangle",
+      "flags": {}
+    },
+    {
+      "label": "bg",
+      "points": [
+        [
+          1451.3333333333335,
+          26.66666666666667
+        ],
+        [
+          2448.0,
+          450.0
+        ]
+      ],
+      "group_id": null,
+      "shape_type": "rectangle",
+      "flags": {}
+    },
+    {
+      "label": "bg",
+      "points": [
+        [
+          2511.3333333333335,
+          16.666666666666668
+        ],
+        [
+          3748.0,
+          516.6666666666667
+        ]
+      ],
+      "group_id": null,
+      "shape_type": "rectangle",
+      "flags": {}
+    },
+    {
+      "label": "bg",
+      "points": [
+        [
+          3488.0,
+          596.6666666666667
+        ],
+        [
+          3954.666666666667,
+          1550.0
+        ]
+      ],
+      "group_id": null,
+      "shape_type": "rectangle",
+      "flags": {}
+    },
+    {
+      "label": "bg",
+      "points": [
+        [
+          878.0,
+          806.6666666666667
+        ],
+        [
+          1541.3333333333335,
+          1516.6666666666667
+        ]
+      ],
+      "group_id": null,
+      "shape_type": "rectangle",
+      "flags": {}
+    },
+    {
+      "label": "bg",
+      "points": [
+        [
+          1.3333333333333712,
+          1376.6666666666667
+        ],
+        [
+          808.0,
+          2493.3333333333335
+        ]
+      ],
+      "group_id": null,
+      "shape_type": "rectangle",
+      "flags": {}
+    },
+    {
+      "label": "bg",
+      "points": [
+        [
+          1901.3333333333335,
+          2060.0
+        ],
+        [
+          3201,
+          3055
+        ]
+      ],
+      "group_id": null,
+      "shape_type": "rectangle",
+      "flags": {}
+    },
+    {
+      "label": "bg",
+      "points": [
+        [
+          8.0,
+          2613.3333333333335
+        ],
+        [
+          911.3333333333335,
+          2996.666666666667
+        ]
+      ],
+      "group_id": null,
+      "shape_type": "rectangle",
+      "flags": {}
     }
   ],
   "imagePath": "Deadpool 006-014.jpg",

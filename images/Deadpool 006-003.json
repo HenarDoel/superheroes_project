@@ -33,6 +33,102 @@
       "group_id": null,
       "shape_type": "rectangle",
       "flags": {}
+    },
+    {
+      "label": "bg",
+      "points": [
+        [
+          30.666666666666742,
+          6.666666666666668
+        ],
+        [
+          807.3333333333335,
+          853.3333333333334
+        ]
+      ],
+      "group_id": null,
+      "shape_type": "rectangle",
+      "flags": {}
+    },
+    {
+      "label": "bg",
+      "points": [
+        [
+          870.666666666667,
+          10.0
+        ],
+        [
+          1970.666666666667,
+          840.0
+        ]
+      ],
+      "group_id": null,
+      "shape_type": "rectangle",
+      "flags": {}
+    },
+    {
+      "label": "bg",
+      "points": [
+        [
+          0.6666666666667425,
+          880.0
+        ],
+        [
+          1074.0,
+          1310.0
+        ]
+      ],
+      "group_id": null,
+      "shape_type": "rectangle",
+      "flags": {}
+    },
+    {
+      "label": "bg",
+      "points": [
+        [
+          1114.0,
+          893.3333333333334
+        ],
+        [
+          1917.3333333333335,
+          1723.3333333333335
+        ]
+      ],
+      "group_id": null,
+      "shape_type": "rectangle",
+      "flags": {}
+    },
+    {
+      "label": "bg",
+      "points": [
+        [
+          954.0,
+          1763.3333333333335
+        ],
+        [
+          1954.0,
+          2250.0
+        ]
+      ],
+      "group_id": null,
+      "shape_type": "rectangle",
+      "flags": {}
+    },
+    {
+      "label": "bg",
+      "points": [
+        [
+          1107.3333333333335,
+          2280.0
+        ],
+        [
+          1890.666666666667,
+          2963.3333333333335
+        ]
+      ],
+      "group_id": null,
+      "shape_type": "rectangle",
+      "flags": {}
     }
   ],
   "imagePath": "Deadpool 006-003.jpg",
