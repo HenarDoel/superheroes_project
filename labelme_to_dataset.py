@@ -6,42 +6,65 @@ import numpy as np
 import matplotlib.pyplot as plt
 from skimage import io as io2
 import cv2
+import glob
+import os
 
-# leer y abrir los objetos json
-with open('images/Deadpool 006-007.json') as f:
-    data = json.load(f)
+# creamos una lista con los paths a los json
+paths_json = []
+paths_json = glob.glob("images/*.json")
+# creamos una lista con los paths a los png
+# paths_jpg = []
+# paths_jpg = glob.glob("images/*.jpg")
 
-# data['shapes'] para ver sus atributillos
-# data['imageData'] imagen codificada como string dentro del json
-img_bytes = base64.b64decode(data['imageData'])  # saco de la string los bytes en base 64
-image = Image.open(io.BytesIO(img_bytes))  # los convierto a imagen
-image_array = np.array(image)
-height=image_array.shape[0]
-width=image_array.shape[1]
-detections_coords = data['shapes']
-# creo una lista para almacenar solo las detecciones
-detections = []
-# creo una copia de la imagen original para modificar y dejar en blanco las detecciones
-# para así después sacar el background
-image_array_copy = image_array.copy()
-# creamos una lista en la que guardar cuadrados del fondo
-bg = []
-# iteramos sobre todas las deteciones que tenga la imagen
-for dc in detections_coords:
-    # sacamos las coordenadas de la primera bounding box
-    # remember: array de numpy es (fila, columna), pero las coordenadas de la bounding box
-    # vienen con formato de imagen (columna, fila)
-    ymin = round(dc["points"][0][1])
-    ymax = round(dc["points"][1][1])
-    xmin = round(dc["points"][0][0])
-    xmax = round(dc["points"][1][0])
-    # sacamos la deteccion actual y la añadimos a la lista de detecciones
-    if (dc["label"]=='bg') :
-        bg.append(image_array[ymin:ymax, xmin:xmax])
-    else:
-        detections.append(image_array[ymin:ymax, xmin:xmax])
-    # dejamos en negro las zonas de las detecciones
-    image_array_copy[ymin:ymax, xmin:xmax] = (0, 255, 0)
+# creamos los directorios donde irán el bg y las detecciones (bounding bpxes)
+os.makedirs('images/bg')
+os.makedirs('images/bounding_boxes')
+
+# bucle principal
+# en él se irán abriendo los json y sacando fragmentos del bg y las bounding boxes
+# para guardarlas como imágenes y entrenar con ellas después
+for p in paths_json:
+    # leer y abrir los objetos json
+    with open(p) as f:
+        data = json.load(f)
+
+    # data['shapes'] para ver sus atributillos
+    # data['imageData'] imagen codificada como string dentro del json
+    img_bytes = base64.b64decode(data['imageData'])  # saco de la string los bytes en base 64
+    image = Image.open(io.BytesIO(img_bytes))  # los convierto a imagen
+    image_array = np.array(image)
+    height=image_array.shape[0]
+    width=image_array.shape[1]
+    detections_coords = data['shapes']
+    # creo una lista para almacenar solo las detecciones
+    detections = []
+    # creo una copia de la imagen original para modificar y dejar en blanco las detecciones
+    # para así después sacar el background
+    image_array_copy = image_array.copy()
+    # creamos una lista en la que guardar cuadrados del fondo
+    bg = []
+    # iteramos sobre todas las deteciones que tenga la imagen
+    for i, dc in enumerate(detections_coords):
+        # sacamos las coordenadas de la primera bounding box
+        # remember: array de numpy es (fila, columna), pero las coordenadas de la bounding box
+        # vienen con formato de imagen (columna, fila)
+        ymin = int(min(dc["points"][0][1],dc["points"][1][1]))
+        ymax = int(max(dc["points"][0][1],dc["points"][1][1]))
+        xmin = int(min(dc["points"][0][0],dc["points"][1][0]))
+        xmax = int(max(dc["points"][0][0],dc["points"][1][0]))
+        # sacamos la deteccion actual y la añadimos a la lista de detecciones
+        if dc["label"] == 'bg':
+            # bg.append(image_array[ymin:ymax, xmin:xmax]) si queremos guardar los bg de esta img una lista
+            img = Image.fromarray(image_array[ymin:ymax, xmin:xmax], 'RGB')
+            # creamos el path y el nombre con el que guardaremos la imagen
+            path = 'images/bg/' + p.split(os.sep)[1].split('.')[0] + '_' + str(i) + '.jpg'
+            img.save(path)
+        else:
+            # detections.append(image_array[ymin:ymax, xmin:xmax]) si queremos guardar las bb de esta img n¡en una lista
+            img = Image.fromarray(image_array[ymin:ymax, xmin:xmax], 'RGB')
+            # creamos el path y el nombre con el que guardaremos la imagen
+            path = 'images/bounding_boxes/' +p.split('\\')[1].split('.')[0] + '_' + dc["label"] + '_' + str(i) + '.jpg'
+            img.save(path)
 
 # # A continucación viene el proceso de extraer el fondo de la imagen,
 # # es decir, lo que no está dentro de las bounding boxes
